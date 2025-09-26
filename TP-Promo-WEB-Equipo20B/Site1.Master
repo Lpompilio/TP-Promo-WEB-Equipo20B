@@ -4,18 +4,47 @@
 
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Promo WEB</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
+    <style>
+        header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        body {
+            margin: 0;
+            padding-bottom: 50px; /* Para que el footer no tape el contenido */
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <header>Header (en la master)</header>
-            <footer>Footer (En la master)</footer>
+            <header>Promo WEB!</header>
+
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+
+            <footer>TP-Promo-WEB-Equipo20B</footer>
         </div>
     </form>
 </body>
