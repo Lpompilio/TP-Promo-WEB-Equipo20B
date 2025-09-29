@@ -44,7 +44,7 @@
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
 
-            <footer>TP-Promo-WEB-Equipo20B</footer>
+            <footer>2025 - TP-Promo-WEB-Equipo20B</footer>
         </div>
     </form>
 </body>
