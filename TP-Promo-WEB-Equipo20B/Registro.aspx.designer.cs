@@ -11,25 +11,16 @@ namespace TP_Promo_WEB_Equipo20B
 {
 
 
-    public partial class Premios
+    public partial class Registro
     {
 
         /// <summary>
-        /// Control dgvPremios.
+        /// Control lblPrueba.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvPremios;
-
-        /// <summary>
-        /// Control rptArticulos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptArticulos;
+        protected global::System.Web.UI.WebControls.Label lblPrueba;
     }
 }
