@@ -31,9 +31,9 @@ namespace negocio
                     cliente.Email = datos.Lector["Email"].ToString();
                     cliente.Direccion = datos.Lector["Direccion"].ToString();
                     cliente.Ciudad = datos.Lector["Ciudad"].ToString();
-                    cliente.CP = datos.Lector["CP"].ToString();
+                    cliente.CP = Convert.ToInt32(datos.Lector["CP"]);
 
-                return cliente;
+                    return cliente;
                 }
                 else {
 
@@ -43,6 +43,69 @@ namespace negocio
             catch (Exception ex)
             {
                 return null;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void GuardarCliente(Cliente cliente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                bool existe = false;
+                datos.setearConsulta("SELECT 1 FROM Clientes WHERE Documento = @Dni");
+                datos.setearParametro("@Dni", cliente.Documento);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    existe = true;
+                }
+
+                datos.CerrarConexion();
+
+                if (existe)
+                {
+                    datos = new AccesoDatos();
+                    datos.setearConsulta(@"UPDATE Clientes 
+                                   SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, 
+                                       Direccion = @Direccion, Ciudad = @Ciudad, CP = @CP 
+                                   WHERE Documento = @Dni");
+
+                    datos.setearParametro("@Dni", cliente.Documento);
+                    datos.setearParametro("@Nombre", cliente.Nombre);
+                    datos.setearParametro("@Apellido", cliente.Apellido);
+                    datos.setearParametro("@Email", cliente.Email);
+                    datos.setearParametro("@Direccion", cliente.Direccion);
+                    datos.setearParametro("@Ciudad", cliente.Ciudad);
+                    datos.setearParametro("@CP", cliente.CP);
+
+                    datos.ejecutarAccion();
+                }
+                else
+                {
+                    datos = new AccesoDatos();
+                    datos.setearConsulta(@"INSERT INTO Clientes (Documento, Nombre, Apellido, Email, Direccion, Ciudad, CP)
+                                   VALUES (@Dni, @Nombre, @Apellido, @Email, @Direccion, @Ciudad, @CP)");
+
+                    datos.setearParametro("@Dni", cliente.Documento);
+                    datos.setearParametro("@Nombre", cliente.Nombre);
+                    datos.setearParametro("@Apellido", cliente.Apellido);
+                    datos.setearParametro("@Email", cliente.Email);
+                    datos.setearParametro("@Direccion", cliente.Direccion);
+                    datos.setearParametro("@Ciudad", cliente.Ciudad);
+                    datos.setearParametro("@CP", cliente.CP);
+
+                    datos.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al guardar cliente", ex);
             }
             finally
             {

@@ -40,7 +40,12 @@
     </div>
 
     <div class="mb-3">
+        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
+    </div>
+
+    <div class="mb-3">
         <asp:Label ID="lblError" runat="server" CssClass="text-danger"></asp:Label>
     </div>
+
 
 </asp:Content>
