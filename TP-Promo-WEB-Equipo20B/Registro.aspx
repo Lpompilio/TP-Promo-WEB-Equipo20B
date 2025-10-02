@@ -13,18 +13,17 @@
                 </h6>
             </div>
             <div>
+                <asp:Label ID="lblError" runat="server" Text="Label"></asp:Label>
                 <asp:TextBox runat="server" CssClass="form-control mb-2" ID="txtDni" PlaceHolder="DNI" Width="300px"></asp:TextBox>
             </div>
 
             <div>
-                <asp:Button ID="btnParticipar" CssClass="btn btn-primary" runat="server" Text="Participar" />
+                <asp:Button ID="btnContinuar" OnClick="btnContinuar_Click" CssClass="btn btn-primary" runat="server" Text="Continuar" />
             </div>
         </div>
     </div>
 
 </asp:Content>
-
-
 
 
 <%--    </div>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -27,6 +28,20 @@ namespace TP_Promo_WEB_Equipo20B
             //{
             //    lblPrueba.Text = "No se seleccionó ningún artículo.";
             //}
+        }
+
+        protected void btnContinuar_Click(object sender, EventArgs e)
+        {
+            string dni = txtDni.Text.Trim();
+
+            if (string.IsNullOrEmpty(dni))
+            {
+                lblError.Text = "Debe ingresar un DNI.";
+                return;
+            }
+            dni = txtDni.Text.Trim();
+            Response.Redirect("Formulario.aspx?dni=" + dni);
+
         }
     }
 }
