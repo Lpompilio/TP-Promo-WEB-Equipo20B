@@ -11,22 +11,22 @@ namespace TP_Promo_WEB_Equipo20B
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["IdArticulo"] != null)
-            {
-                int idArticulo;
-                if (int.TryParse(Session["IdArticulo"].ToString(), out idArticulo))
-                {
-                    lblPrueba.Text = "El ID del artículo seleccionado es: " + idArticulo;
-                }
-                else
-                {
-                    lblPrueba.Text = "El valor de Session no es un número válido.";
-                }
-            }
-            else
-            {
-                lblPrueba.Text = "No se seleccionó ningún artículo.";
-            }
+            //if (Session["IdArticulo"] != null)
+            //{
+            //    int idArticulo;
+            //    if (int.TryParse(Session["IdArticulo"].ToString(), out idArticulo))
+            //    {
+            //        lblPrueba.Text = "El ID del artículo seleccionado es: " + idArticulo;
+            //    }
+            //    else
+            //    {
+            //        lblPrueba.Text = "El valor de Session no es un número válido.";
+            //    }
+            //}
+            //else
+            //{
+            //    lblPrueba.Text = "No se seleccionó ningún artículo.";
+            //}
         }
     }
 }
