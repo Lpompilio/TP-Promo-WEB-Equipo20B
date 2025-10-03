@@ -11,7 +11,7 @@
 
     </script>
 
-    <div class="d-flex justify-content-center vh-100">
+    <div class="d-flex justify-content-center my-5">
         <div class="d-flex flex-column align-items-center">
             <h4 class="my-3">Formulario de Registro</h4>
 

@@ -13,33 +13,42 @@
     </Columns>
 
 </asp:GridView>
-<div class="container">
+<div class="container mt-5">   <!-- le damos margen superior -->
     <div class="row">
-<asp:Repeater ID="rptArticulos" runat="server" OnItemDataBound="rptArticulos_ItemDataBound">
-    <ItemTemplate>
-        <div class="col-md-4 col-sm-6 mb-4 d-flex">
-            <div class="card h-100 w-100">
-                <asp:Literal ID="litCarousel" runat="server"></asp:Literal>
+        <asp:Repeater ID="rptArticulos" runat="server" OnItemDataBound="rptArticulos_ItemDataBound">
+            <ItemTemplate>
+                <div class="col-md-4 col-sm-6 mb-4 d-flex">
+                    <div class="card h-100 w-100">
+                        <!-- Carousel o imagen -->
+                        <asp:Literal ID="litCarousel" runat="server"></asp:Literal>
 
-                <div class="card-body">
-                    <h5 class="card-title"><%# Eval("Nombre") %></h5>
-                    <p class="card-text"><%# Eval("Descripcion") %></p>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                            <p class="card-text flex-grow-1"><%# Eval("Descripcion") %></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Precio:</b> $<%# Eval("Precio") %></li>
+                        </ul>
+                        <div class="card-body text-center">
+                            <asp:Button ID="btnSeleccionar" runat="server" CommandArgument='<%# Eval("Id") %>'
+                                CssClass="btn btn-primary" Text="Elegir" OnClick="btnSeleccionar_Click" />
+                        </div>
+                    </div>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Precio:</b> $<%# Eval("Precio") %></li>
-                </ul>
-                <div class="card-body">
-                    <asp:Button ID="btnSeleccionar" runat="server" CommandArgument='<%# Eval("Id") %>'
-                        CssClass="btn btn-primary" Text="Elegir" OnClick="btnSeleccionar_Click" />
-                </div>
-            </div>
-        </div>
-    </ItemTemplate>
-</asp:Repeater>
+            </ItemTemplate>
 
+        </asp:Repeater>
     </div>
 </div>
 
+                <style>
+                .card img {
+                    width: 100%;
+                    height: 250px;        /* alto fijo para que todas queden iguales */
+                    object-fit: contain;
+                    background-color: #f8f9fa;  /* la imagen se ajusta sin recortarse */
+                            }
+            </style>
 
 
 

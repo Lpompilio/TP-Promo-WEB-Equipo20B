@@ -94,7 +94,7 @@ namespace TP_Promo_WEB_Equipo20B
                     {
                         string active = i == 0 ? "active" : "";
                         html += $"<div class='carousel-item {active}'>" +
-                                $"<img src='{articulo.Imagenes[i].ImagenUrl}' class='d-block w-100' style='height:200px; object-fit:cover;' />" +
+                                $"<img src='{articulo.Imagenes[i].ImagenUrl}' class='d-block w-100' style='height:250px; object-fit:cover;' />" +
                                 "</div>";
                     }
 
