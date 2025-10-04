@@ -45,6 +45,40 @@ namespace negocio
                 datos.CerrarConexion();
             }
         }
+        public bool AsignarVoucherACliente(string codigoVoucher, int idCliente, int idArticulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"UPDATE Vouchers
+                               SET IdCliente = @IdCliente, 
+                                   FechaCanje = GETDATE(), 
+                                   IdArticulo = @IdArticulo 
+                               WHERE CodigoVoucher = @CodigoVoucher 
+                               AND IdCliente IS NULL");
+
+                datos.setearParametro("@IdCliente", idCliente);
+                datos.setearParametro("@IdArticulo", idArticulo);
+                datos.setearParametro("@CodigoVoucher", codigoVoucher);
+
+                datos.ejecutarAccion(); 
+
+                return true; 
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
 
     }
 }
+
+

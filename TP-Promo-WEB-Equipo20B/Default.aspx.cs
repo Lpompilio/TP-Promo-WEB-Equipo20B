@@ -43,6 +43,7 @@ namespace TP_Promo_WEB_Equipo20B
 
             if (voucher != null & voucher.YaUsado==false)
             {
+                Session["CodigoVoucher"] = codigo;
                 Response.Redirect("Premios.aspx");
             }
 

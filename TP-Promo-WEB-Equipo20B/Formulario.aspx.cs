@@ -64,7 +64,32 @@ namespace TP_Promo_WEB_Equipo20B
             ClienteNegocio negocio = new ClienteNegocio();
             negocio.GuardarCliente(cliente);
 
-            Response.Redirect("Exito.aspx?Nombre=" + cliente.Nombre);
+            Cliente clienteGuardado = negocio.ObtenerClientePorDni(cliente.Documento);
+           
+
+            if (clienteGuardado != null)
+            {
+                
+                VoucherNegocio voucherNegocio = new VoucherNegocio();
+                string codigo = Session["CodigoVoucher"] as string;
+                bool asignado = voucherNegocio.AsignarVoucherACliente(codigoVoucher: codigo, clienteGuardado.Id, idArticulo: 2);
+
+                if (asignado)
+                {
+                    
+                    Response.Redirect("Exito.aspx?Nombre=" + cliente.Nombre);
+                }
+                else
+                {
+                   
+                    lblError.Text = "No hay vouchers disponibles para asignar.";
+                }
+            }
+            else
+            {
+                
+                lblError.Text = "Hubo un error al guardar el cliente. Intenta nuevamente.";
+            }
         }
     }
 }
