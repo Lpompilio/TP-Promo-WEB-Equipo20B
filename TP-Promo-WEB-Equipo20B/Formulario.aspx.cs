@@ -33,7 +33,8 @@ namespace TP_Promo_WEB_Equipo20B
                         txtCiudad.Text = c.Ciudad;
                         txtCP.Text = c.CP.ToString();
                     }
-                    else {
+                    else
+                    {
                         txtNombre.Text = "";
                         txtApellido.Text = "";
                         txtEmail.Text = "";
@@ -71,14 +72,14 @@ namespace TP_Promo_WEB_Equipo20B
             {
                 VoucherNegocio voucherNegocio = new VoucherNegocio();
 
-                // Obtener código desde sesión
+                //// Obtener código desde sesión
                 string codigo = Session["CodigoVoucher"] as string;
 
-                if (string.IsNullOrEmpty(codigo))
-                {
-                    lblError.Text = "No se encontró un código de voucher válido. Por favor, ingrésalo primero.";
-                    return; // Termina la ejecución para evitar errores
-                }
+                //if (string.IsNullOrEmpty(codigo))
+                //{
+                //    lblError.Text = "No se encontró un código de voucher válido. Por favor, ingrésalo primero.";
+                //    return; // Termina la ejecución para evitar errores
+                //}
 
                 bool asignado = voucherNegocio.AsignarVoucherACliente(codigoVoucher: codigo, clienteGuardado.Id, idArticulo: 2);
 

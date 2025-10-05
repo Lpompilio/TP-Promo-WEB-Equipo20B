@@ -6,9 +6,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <%--<asp:Label ID="lblPrueba" runat="server" Text="Label"></asp:Label>--%>
 
-    <script>
+    <%--<script>
         function soloNumeros(e) {
-            var charCode = e.charCode;
+            const charCode = e.which || e.keyCode;
             if (charCode < 32) {
                 return true;
             }
@@ -19,27 +19,67 @@
             // Rechaza cualquier otra tecla
             return false;
         }
+        function validarOchoNumeros(valor) {
+            const regex = /^\d{8}$/;
+            return regex.test(valor);
+        }
         function validarDni() {
             const txtDni = document.getElementById("txtDni");
-            if (txtDni.value == "") {
-                txtDni.classList.add("is-invalid")
+            const errorMsg = document.getElementById("errorDni");
+            const valor = txtDni.value.trim();
+
+            // Quitar estados previos
+            txtDni.classList.remove("is-invalid");
+            errorMsg.style.display = "none";
+
+            // Campo vacío
+            if (valor === "") {
+                txtDni.classList.add("is-invalid");
+                errorMsg.innerText = "El DNI es obligatorio.";
+                errorMsg.style.display = "block";
                 return false;
             }
-            txtDni.classList.remove("is-invalid")
+
+            // No tiene 8 números exactos
+            if (!validarOchoNumeros(valor)) {
+                txtDni.classList.add("is-invalid");
+                errorMsg.innerText = "El DNI debe tener exactamente 8 números.";
+                errorMsg.style.display = "block";
+                return false;
+            }
+
+            // Todo correcto
             return true;
         }
-
-        <a href="Premios.aspx">Premios.aspx</a>
-    </script>
+    </script>--%>
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div style="text-align: center; width: 100%; max-width: 350px; padding-bottom: 100px;">
             <h4 class="mb-4 fw-bold">🆔 Ingresa tu DNI
             </h4>
             <div class="mb-3">
-                <asp:TextBox runat="server" ClientIDMode="Static" OnKeyPress="return soloNumeros(event)" CssClass="form-control mb-3" ID="txtDni" PlaceHolder="DNI"></asp:TextBox>
-            </div>
+                <asp:TextBox runat="server" ClientIDMode="Static" CssClass="form-control mb-1" ID="txtDni" PlaceHolder="DNI"></asp:TextBox>
+              </div>  
+
+                <asp:RequiredFieldValidator
+                    ID="rfvDni"
+                    runat="server"
+                    ControlToValidate="txtDni"
+                    ErrorMessage="El DNI es obligatorio."
+                    CssClass="validacion"
+                    Display="Dynamic"/>
+
+
+                <asp:RegularExpressionValidator
+                    ID="revDni"
+                    ErrorMessage="Debe ingresar solo números, con un máximo de 8 dígitos."
+                    ControlToValidate="txtDni"
+                    ValidationExpression="^\d{1,8}$"
+                    Display="Dynamic"
+                    runat="server"
+                    CssClass="validacion" />
+            
             <div>
-                <asp:Button ID="btnContinuar" OnClientClick="return validarDni()" OnClick="btnContinuar_Click" CssClass="btn btn-primary w-100" runat="server" Text="Continuar" />
+                <asp:Button ID="btnContinuar" OnClick="btnContinuar_Click" CssClass="btn btn-primary w-100" runat="server" Text="Continuar" />
             </div>
         </div>
     </div>
@@ -54,6 +94,11 @@
                 background-color: #185ed6 !important;
                 border-color: #185ed6 !important;
             }
+
+        .validacion {
+            font-size: 13px;
+            color: red;
+        }
     </style>
 
 </asp:Content>

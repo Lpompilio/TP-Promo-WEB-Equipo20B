@@ -10,6 +10,7 @@
         </p>
 
         <asp:TextBox ID="txtVoucher" runat="server" CssClass="form-control mb-3" style="max-width: 200px; margin: 0 auto;"></asp:TextBox>
+        <asp:RequiredFieldValidator ErrorMessage="Ingresa tu voucher" CssClass="validacion" ControlToValidate="txtVoucher" runat="server" />
 
         <asp:Label ID="lblMensaje" runat="server" ForeColor="Red"></asp:Label>
 
@@ -37,6 +38,11 @@
                 background-color: #185ed6 !important;
                 border-color: #185ed6 !important;
             }
+
+        .validacion{
+            font-size: 13px;
+            color: red;
+        }
     </style>
 </asp:Content>
 
