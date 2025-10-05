@@ -52,13 +52,13 @@ namespace negocio
             try
             {
                 datos.setearConsulta(@"UPDATE Vouchers
-                               SET IdCliente = @IdCliente, 
+                               SET 
                                    FechaCanje = GETDATE(), 
                                    IdArticulo = @IdArticulo 
                                WHERE CodigoVoucher = @CodigoVoucher 
                                AND IdCliente IS NULL");
 
-                datos.setearParametro("@IdCliente", idCliente);
+
                 datos.setearParametro("@IdArticulo", idArticulo);
                 datos.setearParametro("@CodigoVoucher", codigoVoucher);
 
