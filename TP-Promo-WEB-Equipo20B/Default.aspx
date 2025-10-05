@@ -1,23 +1,42 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TP_Promo_WEB_Equipo20B.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="d-flex justify-content-center vh-100">
-        <div class="d-flex flex-column align-items-center">
-            <div>
-                <h6 class="my-3">Ingrese su código de voucher
-                </h6>
-            </div>
-            <div>
-                <asp:Label ID="lblMensaje" runat="server" ForeColor="Red"></asp:Label>
 
-                <asp:TextBox ID="txtVoucher" runat="server" Width="200px"></asp:TextBox>
-                <br />
-                <br />
-            </div>
-            <div>
-                <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary"/>
-            </div>
-        </div>
+   <%-- <div class="d-flex justify-content-center align-items-center vh-100">--%>
+    <div class="full-screen-center">
+        <p class="promo-title">¿Tenés un código? 🎉</p>
+        <p class="promo-sub">
+            Ingresalo acá y obtené beneficios exclusivos en nuestros servicios.
+        </p>
+
+        <asp:TextBox ID="txtVoucher" runat="server" CssClass="form-control mb-3" style="max-width: 200px; margin: 0 auto;"></asp:TextBox>
+
+        <asp:Label ID="lblMensaje" runat="server" ForeColor="Red"></asp:Label>
+
+        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary"/>
     </div>
+
+    <style>
+        .promo-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .promo-sub {
+            font-size: 1rem;
+            color: #415673;
+            margin-bottom: 15px;
+        }
+
+        .btn.btn-primary {
+            background-color: #324D85;
+            border-color: none;
+        }
+
+            .btn.btn-primary:hover {
+                background-color: #185ed6 !important;
+                border-color: #185ed6 !important;
+            }
+    </style>
 </asp:Content>
 

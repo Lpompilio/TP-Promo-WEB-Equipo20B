@@ -36,7 +36,7 @@ namespace TP_Promo_WEB_Equipo20B
 
             if (string.IsNullOrEmpty(dni))
             {
-                lblError.Text = "Debe ingresar un DNI.";
+                //lblError.Text = "Debe ingresar un DNI.";
                 return;
             }
             dni = txtDni.Text.Trim();
