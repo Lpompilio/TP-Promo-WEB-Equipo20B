@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace TP_Promo_WEB_Equipo20B
 {
     public partial class Formulario : System.Web.UI.Page
@@ -72,20 +73,30 @@ namespace TP_Promo_WEB_Equipo20B
             {
                 VoucherNegocio voucherNegocio = new VoucherNegocio();
 
-                //// Obtener código desde sesión
                 string codigo = Session["CodigoVoucher"] as string;
 
-                //if (string.IsNullOrEmpty(codigo))
-                //{
-                //    lblError.Text = "No se encontró un código de voucher válido. Por favor, ingrésalo primero.";
-                //    return; // Termina la ejecución para evitar errores
-                //}
+                if (string.IsNullOrEmpty(codigo))
+                {
+                    lblError.Text = "No se encontró un código de voucher válido. Por favor, ingrésalo primero.";
+                    return;
+                }
 
-                bool asignado = voucherNegocio.AsignarVoucherACliente(codigoVoucher: codigo, clienteGuardado.Id, idArticulo: 2);
+            
+
+            bool asignado = voucherNegocio.AsignarVoucherACliente(codigoVoucher: codigo, clienteGuardado.Id, idArticulo: 2);
 
                 if (asignado)
                 {
-                    Response.Redirect("Exito.aspx?Nombre=" + cliente.Nombre);
+                    EmailService emailService = new EmailService();
+
+
+                    string asunto = "Confirmacion de registro y cajeo de codigo:" + codigo;
+                    string cuerpo = "Gracias por registrarte:" + cliente.Nombre + cliente.Apellido + "en nuestro sistema.";
+
+                    emailService.armarCorreo(txtEmail.Text, asunto, cuerpo);
+                    emailService.enviarEmail();
+                  
+                Response.Redirect("Exito.aspx?Nombre=" + cliente.Nombre);
                 }
                 else
                 {

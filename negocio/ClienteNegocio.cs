@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using dominio;
 
 namespace negocio
@@ -114,4 +115,3 @@ namespace negocio
         }
     }
 }
-

@@ -4,54 +4,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <%--<asp:Label ID="lblPrueba" runat="server" Text="Label"></asp:Label>--%>
-
-    <%--<script>
-        function soloNumeros(e) {
-            const charCode = e.which || e.keyCode;
-            if (charCode < 32) {
-                return true;
-            }
-            // Permite solo dígitos (0-9)
-            if (charCode >= 48 && charCode <= 57) {
-                return true;
-            }
-            // Rechaza cualquier otra tecla
-            return false;
-        }
-        function validarOchoNumeros(valor) {
-            const regex = /^\d{8}$/;
-            return regex.test(valor);
-        }
-        function validarDni() {
-            const txtDni = document.getElementById("txtDni");
-            const errorMsg = document.getElementById("errorDni");
-            const valor = txtDni.value.trim();
-
-            // Quitar estados previos
-            txtDni.classList.remove("is-invalid");
-            errorMsg.style.display = "none";
-
-            // Campo vacío
-            if (valor === "") {
-                txtDni.classList.add("is-invalid");
-                errorMsg.innerText = "El DNI es obligatorio.";
-                errorMsg.style.display = "block";
-                return false;
-            }
-
-            // No tiene 8 números exactos
-            if (!validarOchoNumeros(valor)) {
-                txtDni.classList.add("is-invalid");
-                errorMsg.innerText = "El DNI debe tener exactamente 8 números.";
-                errorMsg.style.display = "block";
-                return false;
-            }
-
-            // Todo correcto
-            return true;
-        }
-    </script>--%>
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div style="text-align: center; width: 100%; max-width: 350px; padding-bottom: 100px;">
             <h4 class="mb-4 fw-bold">🆔 Ingresa tu DNI
