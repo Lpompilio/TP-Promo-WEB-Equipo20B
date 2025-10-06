@@ -15,10 +15,7 @@ namespace TP_Promo_WEB_Equipo20B
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                //ArticuloNegocio negocio = new ArticuloNegocio();
-                //dgvPremios.DataSource = negocio.listar();
-                //dgvPremios.DataBind();
+            { 
 
                 ArticuloNegocio negocio = new ArticuloNegocio();
                 var lista = negocio.Listar();

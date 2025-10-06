@@ -50,28 +50,25 @@ namespace negocio
         public bool AsignarVoucherACliente(string codigoVoucher, int idCliente, int idArticulo)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
-                datos.setearConsulta(@"UPDATE Vouchers
-                               SET 
-                                   FechaCanje = GETDATE(), 
-                                   IdArticulo = @IdArticulo 
-                               WHERE CodigoVoucher = @CodigoVoucher 
-                               AND IdCliente IS NULL");
+                datos.setearConsulta(@"UPDATE Vouchers 
+                               SET IdCliente = @idCliente, 
+                                   FechaCanje = @fecha, 
+                                   IdArticulo = @idArticulo 
+                               WHERE CodigoVoucher = @codigo 
+                               AND (IdCliente IS NULL OR IdCliente = 0)");
+                datos.setearParametro("@idCliente", idCliente);
+                datos.setearParametro("@fecha", DateTime.Now);
+                datos.setearParametro("@idArticulo", idArticulo);
+                datos.setearParametro("@codigo", codigoVoucher);
 
-
-                datos.setearParametro("@IdArticulo", idArticulo);
-                datos.setearParametro("@CodigoVoucher", codigoVoucher);
-
-                datos.ejecutarAccion(); 
-
-                return true; 
+                datos.ejecutarAccion(); // no devuelve nada
+                return true; // si no lanzó excepción, asumimos que se guardó
             }
             catch (Exception ex)
             {
-                
-                throw ex;
+                throw new Exception("Error al asignar voucher: " + ex.Message, ex);
             }
             finally
             {
@@ -79,7 +76,10 @@ namespace negocio
             }
         }
 
-       
+
+
+
+
     }
     public class EmailService
     {

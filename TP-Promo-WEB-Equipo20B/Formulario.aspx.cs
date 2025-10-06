@@ -50,64 +50,69 @@ namespace TP_Promo_WEB_Equipo20B
             }
         }
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        public void btnGuardar_Click(object sender, EventArgs e)
         {
-            Cliente cliente = new Cliente
+            try
             {
-                Documento = txtDni.Text.Trim(),
-                Nombre = txtNombre.Text.Trim(),
-                Apellido = txtApellido.Text.Trim(),
-                Email = txtEmail.Text.Trim(),
-                Direccion = txtDireccion.Text.Trim(),
-                Ciudad = txtCiudad.Text.Trim(),
-                CP = int.TryParse(txtCP.Text.Trim(), out int cpValue) ? cpValue : 0
-            };
+                Cliente cliente = new Cliente
+                {
+                    Documento = txtDni.Text.Trim(),
+                    Nombre = txtNombre.Text.Trim(),
+                    Apellido = txtApellido.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
+                    Direccion = txtDireccion.Text.Trim(),
+                    Ciudad = txtCiudad.Text.Trim(),
+                    CP = int.TryParse(txtCP.Text.Trim(), out int cpValue) ? cpValue : 0
+                };
 
-            ClienteNegocio negocio = new ClienteNegocio();
-            negocio.GuardarCliente(cliente);
+                ClienteNegocio negocio = new ClienteNegocio();
+                int idcliente = negocio.GuardarCliente(cliente);
 
-            Cliente clienteGuardado = negocio.ObtenerClientePorDni(cliente.Documento);
+                string codigoVoucher = Session["CodigoVoucher"] as string;
+                int? idArticulo = Session["IdArticulo"] != null ? (int?)Convert.ToInt32(Session["IdArticulo"]) : null;
 
 
-            if (clienteGuardado != null)
-            {
-                VoucherNegocio voucherNegocio = new VoucherNegocio();
-
-                string codigo = Session["CodigoVoucher"] as string;
-
-                if (string.IsNullOrEmpty(codigo))
+                if (string.IsNullOrEmpty(codigoVoucher))
                 {
                     lblError.Text = "No se encontró un código de voucher válido. Por favor, ingrésalo primero.";
                     return;
                 }
 
-            
+                if (!idArticulo.HasValue)
+                {
+                    lblError.Text = "No se encontró el premio seleccionado. Por favor, intenta nuevamente.";
+                    return;
+                }
 
-            bool asignado = voucherNegocio.AsignarVoucherACliente(codigoVoucher: codigo, clienteGuardado.Id, idArticulo: 2);
+                VoucherNegocio voucherNegocio = new VoucherNegocio();
+                bool asignado = voucherNegocio.AsignarVoucherACliente(
+                    codigoVoucher,
+                    idcliente,
+                    idArticulo.Value
+                );
 
                 if (asignado)
                 {
                     EmailService emailService = new EmailService();
-
-
-                    string asunto = "Confirmacion de registro y cajeo de codigo:" + codigo;
-                    string cuerpo = "Gracias por registrarte:" + cliente.Nombre + cliente.Apellido + "en nuestro sistema.";
+                    string asunto = $"Confirmación de registro y canje del código {codigoVoucher}";
+                    string cuerpo = $"Gracias por registrarte, {cliente.Nombre} {cliente.Apellido}. " +
+                                    $"Tu participación fue registrada correctamente.";
 
                     emailService.armarCorreo(txtEmail.Text, asunto, cuerpo);
                     emailService.enviarEmail();
-                  
-                Response.Redirect("Exito.aspx?Nombre=" + cliente.Nombre);
+
+                    Response.Redirect("Exito.aspx?Nombre=" + cliente.Nombre);
                 }
                 else
                 {
-                    lblError.Text = "No hay vouchers disponibles para asignar.";
+                    lblError.Text = "No se pudo asignar el voucher. Es posible que ya haya sido usado.";
                 }
             }
-            else
+            catch (Exception ex)
             {
-                lblError.Text = "Hubo un error al guardar el cliente. Intenta nuevamente.";
+                lblError.Text = "Ocurrió un error: " + ex.Message;
             }
-
         }
+
     }
 }
